@@ -1,0 +1,88 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\Program;
+use Illuminate\Http\Request;
+
+class ProgramController extends Controller
+{
+    /**
+     * Display a listing of all programs.
+     */
+    public function getAll()
+    {
+        $programs = Program::all();
+        return response()->json($programs);
+    }
+
+    /**
+     * Display a listing of programs by college.
+     */
+    public function getByCollege($collegeId)
+    {
+        $programs = Program::where('college_id', $collegeId)->get();
+
+        if ($programs->isEmpty()) {
+            return response()->json(['message' => 'No programs found for the specified college'], 404);
+        }
+
+        return response()->json($programs);
+    }
+
+    /**
+     * Display the specified program.
+     */
+    public function getOne($programId)
+    {
+        $program = Program::find($programId);
+
+        if (!$program) {
+            return response()->json(['message' => 'Program not found'], 404);
+        }
+
+        return response()->json($program);
+    }
+
+    /**
+     * Update the specified program in storage.
+     */
+    public function updateOne(Request $request, $programId)
+    {
+        $program = Program::find($programId);
+
+        if (!$program) {
+            return response()->json(['message' => 'Program not found'], 404);
+        }
+
+        $program->update($request->all());
+
+        return response()->json(['message' => 'Program updated']);
+    }
+
+    /**
+     * Remove the specified program from storage.
+     */
+    public function deleteOne($programId)
+    {
+        $program = Program::find($programId);
+
+        if (!$program) {
+            return response()->json(['message' => 'Program not found'], 404);
+        }
+
+        $program->delete();
+
+        return response()->json(['message' => 'Program deleted']);
+    }
+
+    /**
+     * Add a new program (note: this method's purpose might be misleading as it's actually creating a new program).
+     */
+    public function addOne(Request $request, $programId)
+    {
+        $program = Program::create($request->all());
+
+        return response()->json($program, 201);
+    }
+}

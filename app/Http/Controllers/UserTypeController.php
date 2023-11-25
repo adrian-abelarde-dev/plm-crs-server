@@ -16,7 +16,7 @@ class UserTypeController extends Controller
         // return response()->json($userTypes);
 
         // Return hello message for testing
-        return response()->json(['message' => 'Hello!']);
+        return response()->json(['message' => 'getAll!']);
     }
 
     /**
@@ -33,7 +33,7 @@ class UserTypeController extends Controller
         // return response()->json($userType);
 
         // Return hello message for testing
-        return response()->json(['message' => 'Hello!']);
+        return response()->json(['message' => 'getOne!']);
     }
 
     /**
@@ -53,7 +53,7 @@ class UserTypeController extends Controller
         // return response()->json(['message' => 'Updated successfully']);
 
         // Return hello message for testing
-        return response()->json(['message' => 'Hello!']);
+        return response()->json(['message' => 'updateOne!']);
     }
 
     /**
@@ -72,7 +72,7 @@ class UserTypeController extends Controller
         // return response()->json(['message' => 'Deleted successfully']);
 
         // Return hello message for testing
-        return response()->json(['message' => 'Hello!']);
+        return response()->json(['message' => 'deleteOne!']);
     }
 
     /**

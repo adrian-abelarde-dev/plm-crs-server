@@ -13,7 +13,7 @@ class ActivityController extends Controller
         // return response()->json($activities);
 
         // Return hello message for testing
-        return response()->json(['message' => 'Hello!']);
+        return response()->json(['message' => 'getAllActivities!']);
     }
 
     public function getActivityById($id)
@@ -27,7 +27,7 @@ class ActivityController extends Controller
         // return response()->json($activity);
 
         // Return hello message for testing
-        return response()->json(['message' => 'Hello!']);
+        return response()->json(['message' => 'getActivityById!']);
     }
 
     public function createActivity(Request $request)
@@ -44,7 +44,7 @@ class ActivityController extends Controller
         // return response()->json($activity, 201);
 
         // Return hello message for testing
-        return response()->json(['message' => 'Hello!']);
+        return response()->json(['message' => 'createActivity!']);
     }
 
     public function updateActivity(Request $request, $id)
@@ -67,6 +67,6 @@ class ActivityController extends Controller
         // return response()->json($activity);
 
         // Return hello message for testing
-        return response()->json(['message' => 'Hello!']);
+        return response()->json(['message' => 'updateActivity!']);
     }
 }

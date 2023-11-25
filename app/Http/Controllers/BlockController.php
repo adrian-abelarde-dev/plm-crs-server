@@ -16,7 +16,7 @@ class BlockController extends Controller
         // return response()->json($blocks);
 
         // Return hello message for testing
-        return response()->json(['message' => 'Hello!']);
+        return response()->json(['message' => 'getAll!']);
     }
 
     /**
@@ -33,7 +33,7 @@ class BlockController extends Controller
         // return response()->json($block);
 
         // Return hello message for testing
-        return response()->json(['message' => 'Hello!']);
+        return response()->json(['message' => 'getOne!']);
     }
 
     /**
@@ -52,7 +52,7 @@ class BlockController extends Controller
         // return response()->json(['message' => 'Block updated']);
 
         // Return hello message for testing
-        return response()->json(['message' => 'Hello!']);
+        return response()->json(['message' => 'updateOne!']);
     }
 
     /**
@@ -71,7 +71,7 @@ class BlockController extends Controller
         // return response()->json(['message' => 'Block deleted']);
 
         // Return hello message for testing
-        return response()->json(['message' => 'Hello!']);
+        return response()->json(['message' => 'deleteOne!']);
     }
 
     /**
@@ -84,6 +84,6 @@ class BlockController extends Controller
         // return response()->json($block, 201);
 
         // Return hello message for testing
-        return response()->json(['message' => 'Hello!']);
+        return response()->json(['message' => 'createOne!']);
     }
 }

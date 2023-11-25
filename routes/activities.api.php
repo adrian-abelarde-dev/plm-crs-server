@@ -9,11 +9,11 @@ Route::prefix('activities')->group(function () {
     Route::get('/all', [ActivityController::class, 'getAllActivities']);
 
 	// get a specific activity
-    Route::get('/{id}', [ActivityController::class, 'getActivityById']);
+    Route::get('/1/{id}', [ActivityController::class, 'getActivityById']);
 
 	// create a new activity
     Route::post('/', [ActivityController::class, 'createActivity']);
 
 	// update an existing activity
-    Route::put('/{id}', [ActivityController::class, 'updateActivity']);
+    Route::put('/1/{id}', [ActivityController::class, 'updateActivity']);
 });

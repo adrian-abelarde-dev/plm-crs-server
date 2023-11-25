@@ -16,7 +16,7 @@ class MeetingTypeController extends Controller
         // return response()->json($meetingTypes);
 
         // Return hello message for testing
-        return response()->json(['message' => 'Hello!']);
+        return response()->json(['message' => 'getAll!']);
     }
 
     /**
@@ -33,7 +33,7 @@ class MeetingTypeController extends Controller
         // return response()->json($meetingType);
 
         // Return hello message for testing
-        return response()->json(['message' => 'Hello!']);
+        return response()->json(['message' => 'getOne!']);
     }
 
     /**
@@ -52,7 +52,7 @@ class MeetingTypeController extends Controller
         // return response()->json(['message' => 'Meeting type updated']);
 
         // Return hello message for testing
-        return response()->json(['message' => 'Hello!']);
+        return response()->json(['message' => 'updateOne!']);
     }
 
     /**
@@ -71,7 +71,7 @@ class MeetingTypeController extends Controller
         // return response()->json(['message' => 'Meeting type deleted']);
 
         // Return hello message for testing
-        return response()->json(['message' => 'Hello!']);
+        return response()->json(['message' => 'deleteOne!']);
     }
 
     /**
@@ -84,6 +84,6 @@ class MeetingTypeController extends Controller
         // return response()->json($meetingType, 201);
 
         // Return hello message for testing
-        return response()->json(['message' => 'Hello!']);
+        return response()->json(['message' => 'createOne!']);
     }
 }

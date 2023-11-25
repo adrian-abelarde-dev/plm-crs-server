@@ -4,14 +4,17 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProgramController;
 
-// Get all programs
-Route::get('/programs/all', [ProgramController::class, 'getAll']);
+// ? --> {PORT}/api/programs/
+Route::prefix('programs')->group(function () {
+	// Get all programs
+	Route::get('/all', [ProgramController::class, 'getAll']);
 
-// Get all programs by college
-Route::get('/programs/byCollege/{collegeId}', [ProgramController::class, 'getByCollege']);
+	// Get all programs by college
+	Route::get('/by-college/{collegeId}', [ProgramController::class, 'getByCollege']);
 
-// Operations on a single program
-Route::get('/programs/1/{programId}', [ProgramController::class, 'getOne']);
-Route::put('/programs/1/{programId}', [ProgramController::class, 'updateOne']);
-Route::delete('/programs/1/{programId}', [ProgramController::class, 'deleteOne']);
-Route::post('/programs/1/{programId}', [ProgramController::class, 'addOne']);
+	// Operations on a single program
+	Route::get('/1/{programId}', [ProgramController::class, 'getOne']);
+	Route::put('/1/{programId}', [ProgramController::class, 'updateOne']);
+	Route::delete('/1/{programId}', [ProgramController::class, 'deleteOne']);
+	Route::post('/1/{programId}', [ProgramController::class, 'addOne']);
+});

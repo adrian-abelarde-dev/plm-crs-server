@@ -9,52 +9,64 @@ class ActivityController extends Controller
 {
     public function getAllActivities()
     {
-        $activities = Activity::all();
-        return response()->json($activities);
+        // $activities = Activity::all();
+        // return response()->json($activities);
+
+        // Return hello message for testing
+        return response()->json(['message' => 'Hello!']);
     }
 
     public function getActivityById($id)
     {
-        $activity = Activity::find($id);
+        // $activity = Activity::find($id);
 
-        if (!$activity) {
-            return response()->json(['error' => 'Activity not found'], 404);
-        }
+        // if (!$activity) {
+        //     return response()->json(['error' => 'Activity not found'], 404);
+        // }
 
-        return response()->json($activity);
+        // return response()->json($activity);
+
+        // Return hello message for testing
+        return response()->json(['message' => 'Hello!']);
     }
 
     public function createActivity(Request $request)
     {
-        // Validate and store the new activity
-        // Example validation
-        $validatedData = $request->validate([
-            'name' => 'required|string',
-            // Add other fields as needed
-        ]);
+        // // Validate and store the new activity
+        // // Example validation
+        // $validatedData = $request->validate([
+        //     'name' => 'required|string',
+        //     // Add other fields as needed
+        // ]);
 
-        $activity = Activity::create($validatedData);
+        // $activity = Activity::create($validatedData);
 
-        return response()->json($activity, 201);
+        // return response()->json($activity, 201);
+
+        // Return hello message for testing
+        return response()->json(['message' => 'Hello!']);
     }
 
     public function updateActivity(Request $request, $id)
     {
-        $activity = Activity::find($id);
+        // $activity = Activity::find($id);
 
-        if (!$activity) {
-            return response()->json(['error' => 'Activity not found'], 404);
-        }
+        // if (!$activity) {
+        //     return response()->json(['error' => 'Activity not found'], 404);
+        // }
 
-        // Validate and update the activity
-        // Example validation
-        $validatedData = $request->validate([
-            'name' => 'required|string',
-            // Add other fields as needed
-        ]);
+        // // Validate and update the activity
+        // // Example validation
+        // $validatedData = $request->validate([
+        //     'name' => 'required|string',
+        //     // Add other fields as needed
+        // ]);
 
-        $activity->update($validatedData);
+        // $activity->update($validatedData);
 
-        return response()->json($activity);
+        // return response()->json($activity);
+
+        // Return hello message for testing
+        return response()->json(['message' => 'Hello!']);
     }
 }

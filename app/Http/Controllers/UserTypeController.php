@@ -12,8 +12,11 @@ class UserTypeController extends Controller
      */
     public function getAll()
     {
-        $userTypes = UserType::all();
-        return response()->json($userTypes);
+        // $userTypes = UserType::all();
+        // return response()->json($userTypes);
+
+        // Return hello message for testing
+        return response()->json(['message' => 'Hello!']);
     }
 
     /**
@@ -21,13 +24,16 @@ class UserTypeController extends Controller
      */
     public function getOne($userTypeId)
     {
-        $userType = UserType::find($userTypeId);
+        // $userType = UserType::find($userTypeId);
 
-        if (!$userType) {
-            return response()->json(['message' => 'Not Found'], 404);
-        }
+        // if (!$userType) {
+        //     return response()->json(['message' => 'Not Found'], 404);
+        // }
 
-        return response()->json($userType);
+        // return response()->json($userType);
+
+        // Return hello message for testing
+        return response()->json(['message' => 'Hello!']);
     }
 
     /**
@@ -35,16 +41,19 @@ class UserTypeController extends Controller
      */
     public function updateOne(Request $request, $userTypeId)
     {
-        $userType = UserType::find($userTypeId);
+        // $userType = UserType::find($userTypeId);
 
-        if (!$userType) {
-            return response()->json(['message' => 'Not Found'], 404);
-        }
+        // if (!$userType) {
+        //     return response()->json(['message' => 'Not Found'], 404);
+        // }
 
-        // Update logic here
-        // $userType->update($request->all());
+        // // Update logic here
+        // // $userType->update($request->all());
 
-        return response()->json(['message' => 'Updated successfully']);
+        // return response()->json(['message' => 'Updated successfully']);
+
+        // Return hello message for testing
+        return response()->json(['message' => 'Hello!']);
     }
 
     /**
@@ -52,15 +61,18 @@ class UserTypeController extends Controller
      */
     public function deleteOne($userTypeId)
     {
-        $userType = UserType::find($userTypeId);
+        // $userType = UserType::find($userTypeId);
 
-        if (!$userType) {
-            return response()->json(['message' => 'Not Found'], 404);
-        }
+        // if (!$userType) {
+        //     return response()->json(['message' => 'Not Found'], 404);
+        // }
 
-        $userType->delete();
+        // $userType->delete();
 
-        return response()->json(['message' => 'Deleted successfully']);
+        // return response()->json(['message' => 'Deleted successfully']);
+
+        // Return hello message for testing
+        return response()->json(['message' => 'Hello!']);
     }
 
     /**

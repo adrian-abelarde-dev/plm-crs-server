@@ -12,8 +12,11 @@ class CollegeController extends Controller
      */
     public function getAll()
     {
-        $colleges = College::all();
-        return response()->json($colleges);
+        // $colleges = College::all();
+        // return response()->json($colleges);
+
+        // Return hello message for testing
+        return response()->json(['message' => 'Hello!']);
     }
 
     /**
@@ -21,13 +24,16 @@ class CollegeController extends Controller
      */
     public function getOne($collegeId)
     {
-        $college = College::find($collegeId);
+        // $college = College::find($collegeId);
 
-        if (!$college) {
-            return response()->json(['message' => 'College not found'], 404);
-        }
+        // if (!$college) {
+        //     return response()->json(['message' => 'College not found'], 404);
+        // }
 
-        return response()->json($college);
+        // return response()->json($college);
+
+        // Return hello message for testing
+        return response()->json(['message' => 'Hello!']);
     }
 
     /**
@@ -35,15 +41,18 @@ class CollegeController extends Controller
      */
     public function updateOne(Request $request, $collegeId)
     {
-        $college = College::find($collegeId);
+        // $college = College::find($collegeId);
 
-        if (!$college) {
-            return response()->json(['message' => 'College not found'], 404);
-        }
+        // if (!$college) {
+        //     return response()->json(['message' => 'College not found'], 404);
+        // }
 
-        $college->update($request->all());
+        // $college->update($request->all());
 
-        return response()->json(['message' => 'College updated']);
+        // return response()->json(['message' => 'College updated']);
+
+        // Return hello message for testing
+        return response()->json(['message' => 'Hello!']);
     }
 
     /**
@@ -51,15 +60,18 @@ class CollegeController extends Controller
      */
     public function deleteOne($collegeId)
     {
-        $college = College::find($collegeId);
+        // $college = College::find($collegeId);
 
-        if (!$college) {
-            return response()->json(['message' => 'College not found'], 404);
-        }
+        // if (!$college) {
+        //     return response()->json(['message' => 'College not found'], 404);
+        // }
 
-        $college->delete();
+        // $college->delete();
 
-        return response()->json(['message' => 'College deleted']);
+        // return response()->json(['message' => 'College deleted']);
+
+        // Return hello message for testing
+        return response()->json(['message' => 'Hello!']);
     }
 
     /**
@@ -67,8 +79,11 @@ class CollegeController extends Controller
      */
     public function addOne(Request $request, $collegeId)
     {
-        $college = College::create($request->all());
+        // $college = College::create($request->all());
 
-        return response()->json($college, 201);
+        // return response()->json($college, 201);
+
+        // Return hello message for testing
+        return response()->json(['message' => 'Hello!']);
     }
 }

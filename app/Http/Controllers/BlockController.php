@@ -33,7 +33,7 @@ class BlockController extends Controller
         // return response()->json($block);
 
         // Return hello message for testing
-        return response()->json(['message' => 'getOne!']);
+        return response()->json(['message' => 'getOne!', 'blockId' => $blockId]);
     }
 
     /**
@@ -52,7 +52,7 @@ class BlockController extends Controller
         // return response()->json(['message' => 'Block updated']);
 
         // Return hello message for testing
-        return response()->json(['message' => 'updateOne!']);
+        return response()->json(['message' => 'updateOne!', 'blockId' => $blockId]);
     }
 
     /**
@@ -71,7 +71,7 @@ class BlockController extends Controller
         // return response()->json(['message' => 'Block deleted']);
 
         // Return hello message for testing
-        return response()->json(['message' => 'deleteOne!']);
+        return response()->json(['message' => 'deleteOne!', 'blockId' => $blockId]);
     }
 
     /**

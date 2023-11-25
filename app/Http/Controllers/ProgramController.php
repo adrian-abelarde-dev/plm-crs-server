@@ -33,7 +33,7 @@ class ProgramController extends Controller
         // return response()->json($programs);
 
         // Return hello message for testing
-        return response()->json(['message' => 'getByCollege!']);
+        return response()->json(['message' => 'getByCollege!', 'collegeId' => $collegeId]);
     }
 
     /**
@@ -50,7 +50,7 @@ class ProgramController extends Controller
         // return response()->json($program);
 
         // Return hello message for testing
-        return response()->json(['message' => 'getOne!']);
+        return response()->json(['message' => 'getOne!', 'programId' => $programId]);
     }
 
     /**
@@ -69,7 +69,7 @@ class ProgramController extends Controller
         // return response()->json(['message' => 'Program updated']);
 
         // Return hello message for testing
-        return response()->json(['message' => 'updateOne!']);
+        return response()->json(['message' => 'updateOne!', 'programId' => $programId]);
     }
 
     /**
@@ -88,7 +88,7 @@ class ProgramController extends Controller
         // return response()->json(['message' => 'Program deleted']);
 
         // Return hello message for testing
-        return response()->json(['message' => 'deleteOne!']);
+        return response()->json(['message' => 'deleteOne!', 'programId' => $programId]);
     }
 
     /**
@@ -101,6 +101,6 @@ class ProgramController extends Controller
         // return response()->json($program, 201);
 
         // Return hello message for testing
-        return response()->json(['message' => 'addOne!']);
+        return response()->json(['message' => 'addOne!', 'programId' => $programId]);
     }
 }

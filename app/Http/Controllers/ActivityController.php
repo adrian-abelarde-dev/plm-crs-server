@@ -27,7 +27,7 @@ class ActivityController extends Controller
         // return response()->json($activity);
 
         // Return hello message for testing
-        return response()->json(['message' => 'getActivityById!']);
+        return response()->json(['message' => 'getActivityById!', 'id' => $id]);
     }
 
     public function createActivity(Request $request)
@@ -67,6 +67,6 @@ class ActivityController extends Controller
         // return response()->json($activity);
 
         // Return hello message for testing
-        return response()->json(['message' => 'updateActivity!']);
+        return response()->json(['message' => 'getActivityById!', 'id' => $id]);
     }
 }

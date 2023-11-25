@@ -33,7 +33,7 @@ class CollegeController extends Controller
         // return response()->json($college);
 
         // Return hello message for testing
-        return response()->json(['message' => 'getOne!']);
+        return response()->json(['message' => 'getOne!', 'collegeId' => $collegeId]);
     }
 
     /**
@@ -52,7 +52,7 @@ class CollegeController extends Controller
         // return response()->json(['message' => 'College updated']);
 
         // Return hello message for testing
-        return response()->json(['message' => 'updateOne!']);
+        return response()->json(['message' => 'updateOne!', 'collegeId' => $collegeId]);
     }
 
     /**
@@ -71,7 +71,7 @@ class CollegeController extends Controller
         // return response()->json(['message' => 'College deleted']);
 
         // Return hello message for testing
-        return response()->json(['message' => 'deleteOne!']);
+        return response()->json(['message' => 'deleteOne!', 'collegeId' => $collegeId]);
     }
 
     /**
@@ -84,6 +84,6 @@ class CollegeController extends Controller
         // return response()->json($college, 201);
 
         // Return hello message for testing
-        return response()->json(['message' => 'addOne!']);
+        return response()->json(['message' => 'addOne!', 'collegeId' => $collegeId]);
     }
 }

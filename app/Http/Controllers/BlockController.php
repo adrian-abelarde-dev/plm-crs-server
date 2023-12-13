@@ -12,8 +12,11 @@ class BlockController extends Controller
      */
     public function getAll()
     {
-        $blocks = Block::all();
-        return response()->json($blocks);
+        // $blocks = Block::all();
+        // return response()->json($blocks);
+
+        // Return hello message for testing
+        return response()->json(['message' => 'getAll!']);
     }
 
     /**
@@ -21,13 +24,16 @@ class BlockController extends Controller
      */
     public function getOne($blockId)
     {
-        $block = Block::find($blockId);
+        // $block = Block::find($blockId);
 
-        if (!$block) {
-            return response()->json(['message' => 'Block not found'], 404);
-        }
+        // if (!$block) {
+        //     return response()->json(['message' => 'Block not found'], 404);
+        // }
 
-        return response()->json($block);
+        // return response()->json($block);
+
+        // Return hello message for testing
+        return response()->json(['message' => 'getOne!', 'blockId' => $blockId]);
     }
 
     /**
@@ -35,15 +41,18 @@ class BlockController extends Controller
      */
     public function updateOne(Request $request, $blockId)
     {
-        $block = Block::find($blockId);
+        // $block = Block::find($blockId);
 
-        if (!$block) {
-            return response()->json(['message' => 'Block not found'], 404);
-        }
+        // if (!$block) {
+        //     return response()->json(['message' => 'Block not found'], 404);
+        // }
 
-        $block->update($request->all());
+        // $block->update($request->all());
 
-        return response()->json(['message' => 'Block updated']);
+        // return response()->json(['message' => 'Block updated']);
+
+        // Return hello message for testing
+        return response()->json(['message' => 'updateOne!', 'blockId' => $blockId]);
     }
 
     /**
@@ -51,15 +60,18 @@ class BlockController extends Controller
      */
     public function deleteOne($blockId)
     {
-        $block = Block::find($blockId);
+        // $block = Block::find($blockId);
 
-        if (!$block) {
-            return response()->json(['message' => 'Block not found'], 404);
-        }
+        // if (!$block) {
+        //     return response()->json(['message' => 'Block not found'], 404);
+        // }
 
-        $block->delete();
+        // $block->delete();
 
-        return response()->json(['message' => 'Block deleted']);
+        // return response()->json(['message' => 'Block deleted']);
+
+        // Return hello message for testing
+        return response()->json(['message' => 'deleteOne!', 'blockId' => $blockId]);
     }
 
     /**
@@ -67,8 +79,11 @@ class BlockController extends Controller
      */
     public function createOne(Request $request)
     {
-        $block = Block::create($request->all());
+        // $block = Block::create($request->all());
 
-        return response()->json($block, 201);
+        // return response()->json($block, 201);
+
+        // Return hello message for testing
+        return response()->json(['message' => 'createOne!']);
     }
 }

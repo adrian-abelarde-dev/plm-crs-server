@@ -12,8 +12,11 @@ class ProgramController extends Controller
      */
     public function getAll()
     {
-        $programs = Program::all();
-        return response()->json($programs);
+        // $programs = Program::all();
+        // return response()->json($programs);
+
+        // Return hello message for testing
+        return response()->json(['message' => 'getAll!']);
     }
 
     /**
@@ -21,13 +24,16 @@ class ProgramController extends Controller
      */
     public function getByCollege($collegeId)
     {
-        $programs = Program::where('college_id', $collegeId)->get();
+        // $programs = Program::where('college_id', $collegeId)->get();
 
-        if ($programs->isEmpty()) {
-            return response()->json(['message' => 'No programs found for the specified college'], 404);
-        }
+        // if ($programs->isEmpty()) {
+        //     return response()->json(['message' => 'No programs found for the specified college'], 404);
+        // }
 
-        return response()->json($programs);
+        // return response()->json($programs);
+
+        // Return hello message for testing
+        return response()->json(['message' => 'getByCollege!', 'collegeId' => $collegeId]);
     }
 
     /**
@@ -35,13 +41,16 @@ class ProgramController extends Controller
      */
     public function getOne($programId)
     {
-        $program = Program::find($programId);
+        // $program = Program::find($programId);
 
-        if (!$program) {
-            return response()->json(['message' => 'Program not found'], 404);
-        }
+        // if (!$program) {
+        //     return response()->json(['message' => 'Program not found'], 404);
+        // }
 
-        return response()->json($program);
+        // return response()->json($program);
+
+        // Return hello message for testing
+        return response()->json(['message' => 'getOne!', 'programId' => $programId]);
     }
 
     /**
@@ -49,15 +58,18 @@ class ProgramController extends Controller
      */
     public function updateOne(Request $request, $programId)
     {
-        $program = Program::find($programId);
+        // $program = Program::find($programId);
 
-        if (!$program) {
-            return response()->json(['message' => 'Program not found'], 404);
-        }
+        // if (!$program) {
+        //     return response()->json(['message' => 'Program not found'], 404);
+        // }
 
-        $program->update($request->all());
+        // $program->update($request->all());
 
-        return response()->json(['message' => 'Program updated']);
+        // return response()->json(['message' => 'Program updated']);
+
+        // Return hello message for testing
+        return response()->json(['message' => 'updateOne!', 'programId' => $programId]);
     }
 
     /**
@@ -65,15 +77,18 @@ class ProgramController extends Controller
      */
     public function deleteOne($programId)
     {
-        $program = Program::find($programId);
+        // $program = Program::find($programId);
 
-        if (!$program) {
-            return response()->json(['message' => 'Program not found'], 404);
-        }
+        // if (!$program) {
+        //     return response()->json(['message' => 'Program not found'], 404);
+        // }
 
-        $program->delete();
+        // $program->delete();
 
-        return response()->json(['message' => 'Program deleted']);
+        // return response()->json(['message' => 'Program deleted']);
+
+        // Return hello message for testing
+        return response()->json(['message' => 'deleteOne!', 'programId' => $programId]);
     }
 
     /**
@@ -81,8 +96,11 @@ class ProgramController extends Controller
      */
     public function addOne(Request $request, $programId)
     {
-        $program = Program::create($request->all());
+        // $program = Program::create($request->all());
 
-        return response()->json($program, 201);
+        // return response()->json($program, 201);
+
+        // Return hello message for testing
+        return response()->json(['message' => 'addOne!', 'programId' => $programId]);
     }
 }

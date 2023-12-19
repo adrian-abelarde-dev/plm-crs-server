@@ -30,5 +30,30 @@ class Users extends Model
         'expiryDate'
     ];
 
+    public function hasAdminRole(){
+        return $this->hasOne(Admin::class, 'userId');
+    }
+
+    public function hasStudentRole(){
+        return $this->hasOne(Student::class, 'userId');
+    }
+
+    public function hasStudentGradRole(){
+        return $this->hasOne(StudentGrad::class, 'userId');
+    }
+
+    public function hasChairpersonUndergradRole(){
+        return $this->hasOne(ChairpersonUndergrad::class, 'userId');
+    }
+
+    public function hasChairpersonGradRole(){
+        return $this->hasOne(ChairpersonGrad::class, 'userId');
+    }
+
+    public function hasFacultyRole(){
+        return $this->hasOne(Faculty::class, 'userId');
+    }
+
+
 
 }

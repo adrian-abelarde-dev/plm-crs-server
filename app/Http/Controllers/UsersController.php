@@ -4,19 +4,44 @@ namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Users;
-use App\Models\Admin;
-use App\Models\Student;
-use App\Models\StudentGrad;
-use App\Models\ChairpersonGrad;
-use App\Models\ChairpersonUndergrad;
-use App\Models\Faculty;
 use Illuminate\Http\Request;
 
 
 class UsersController extends Controller
 {
     public function login($email){
-        return response()->json(['roles' => ['student', 'admin'], 'email' => $email]);
+        $user = Users::where('plmEmail', $email)->first();
+
+        if($user){
+            $userTypes = [];
+             if ($user->hasAdminRole()->exists()) {
+                $userTypes[] = 'Admin';
+            }
+
+            if ($user->hasStudentRole()->exists()) {
+                $userTypes[] = 'Student';
+            }
+
+            if ($user->hasStudentGradRole()->exists()) {
+                $userTypes[] = 'StudentGrad';
+            }
+
+            if ($user->hasChairpersonUndergradRole()->exists()) {
+                $userTypes[] = 'ChairpersonUndergrad';
+            }
+
+            if ($user->hasChairpersonGradRole()->exists()) {
+                $userTypes[] = 'ChairpersonGrad';
+            }
+
+            if ($user->hasFacultyRole()->exists()) {
+                $userTypes[] = 'Faculty';
+            }
+
+            return response()->json(['userTypes' => $userTypes]);
+        }else{
+            return response()->json(['message' => 'User not found']);
+        }
     }
 
     // insert user data to database

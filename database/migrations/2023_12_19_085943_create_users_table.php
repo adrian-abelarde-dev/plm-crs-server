@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('nameExtension')->nullable();
             $table->string('gender')->nullable();
             $table->string('maidenName')->nullable();
-            $table->string('plmEmail')->nullable();
+            $table->string('plmEmail')->nullable()->unique();
             $table->string('birthday')->nullable();
             $table->string('birthplace')->nullable();
             $table->string('civilStatus')->nullable();

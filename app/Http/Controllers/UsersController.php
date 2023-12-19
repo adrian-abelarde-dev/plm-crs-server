@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Controllers\Controller;
-use App\Models\User;
-use App\Models\users;
+use App\Models\Users;
 use Illuminate\Http\Request;
 
 class UsersController extends Controller
@@ -23,14 +22,17 @@ class UsersController extends Controller
             'plmEmail' => $request->input('email'),
         ];
 
-        // Create a new User model instance
-        $user = new users($userData);
+        // Create a new User model instance or get the existing one
+        $user = Users::firstOrCreate(['plmEmail' => $userData['plmEmail']], $userData);
 
-        // Save the user to the database
-        $user->save();
-
-        return response()->json(['message' => 'User inserted successfully']);
-     }
+        if ($user->wasRecentlyCreated) {
+            // This is a new user
+            return response()->json(['message' => 'User inserted successfully']);
+        } else {
+            // User with the same email already exists
+            return response()->json(['message' => 'User with this email already exists']);
+        }
+    }
 
     // update user data to database
     public function updateUser(){

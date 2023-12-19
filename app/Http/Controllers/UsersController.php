@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Users;
 use Illuminate\Http\Request;
 
+
 class UsersController extends Controller
 {
     public function login($email){
@@ -15,7 +16,7 @@ class UsersController extends Controller
     // insert user data to database
      public function insertUser(Request $request){
         $userData = [
-            'userId' => $request->input('userId'),
+            'id' => $request->input('userId'),
             'userType' => $request->input('userType'),
             'firstName' => $request->input('firstName'),
             'middleName' => $request->input('middleName'),
@@ -36,8 +37,19 @@ class UsersController extends Controller
     }
 
     // update user data to database
-    public function updateUser(){
-        return response()->json(['message' => 'User data updated successfully!']);
-    }
+    public function updateUser(Request $request, $userId){
+        // Find the user by id
+        $user = Users::findOrFail($userId);
 
+        // Filter the request data to remove null or empty values
+        $userData = array_filter($request->all());
+
+        // Fill user model
+        $user->fill($userData);
+
+        // Save user to database
+        $user->save();
+
+        return response()->json(['message' => 'User updated successfully']);
+    }
 }

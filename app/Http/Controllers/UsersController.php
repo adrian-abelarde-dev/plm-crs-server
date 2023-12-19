@@ -12,34 +12,20 @@ class UsersController extends Controller
     public function login($email){
         $user = Users::where('plmEmail', $email)->first();
 
-        if($user){
+        if ($user) {
+            $roleNames = ['Admin', 'Student', 'StudentGrad', 'ChairpersonUndergrad', 'ChairpersonGrad', 'Faculty'];
             $userTypes = [];
-             if ($user->hasAdminRole()->exists()) {
-                $userTypes[] = 'Admin';
-            }
 
-            if ($user->hasStudentRole()->exists()) {
-                $userTypes[] = 'Student';
-            }
+            foreach ($roleNames as $roleName) {
+                $method = 'has' . $roleName . 'Role';
 
-            if ($user->hasStudentGradRole()->exists()) {
-                $userTypes[] = 'StudentGrad';
-            }
-
-            if ($user->hasChairpersonUndergradRole()->exists()) {
-                $userTypes[] = 'ChairpersonUndergrad';
-            }
-
-            if ($user->hasChairpersonGradRole()->exists()) {
-                $userTypes[] = 'ChairpersonGrad';
-            }
-
-            if ($user->hasFacultyRole()->exists()) {
-                $userTypes[] = 'Faculty';
+                if ($user->$method()->exists()) {
+                    $userTypes[] = $roleName;
+                }
             }
 
             return response()->json(['userTypes' => $userTypes]);
-        }else{
+        } else {
             return response()->json(['message' => 'User not found']);
         }
     }

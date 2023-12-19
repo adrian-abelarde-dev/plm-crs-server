@@ -15,11 +15,12 @@ class UsersController extends Controller
     // insert user data to database
      public function insertUser(Request $request){
         $userData = [
+            'userId' => $request->input('userId'),
             'userType' => $request->input('userType'),
             'firstName' => $request->input('firstName'),
             'middleName' => $request->input('middleName'),
             'lastName' => $request->input('lastName'),
-            'plmEmail' => $request->input('email'),
+            'plmEmail' => $request->input('plmEmail'),
         ];
 
         // Create a new User model instance or get the existing one

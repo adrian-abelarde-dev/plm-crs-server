@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 class Users extends Model
 {
     protected $fillable = [
+        'userId',
         'firstName',
         'middleName',
         'lastName',

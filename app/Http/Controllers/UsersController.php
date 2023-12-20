@@ -40,23 +40,27 @@ class UsersController extends Controller
             'plmEmail' => $request->input('plmEmail'),
         ];
 
-        // Create a new User model instance or get the existing one
-        $user = Users::firstOrCreate(['plmEmail' => $userData['plmEmail']], $userData);
+        // Check if the userId already exists
+        if (Users::where('id', $userData['id'])->exists()) {
+            return response()->json(['message' => 'User with this userId already exists']);
+        }
 
-        if ($user->wasRecentlyCreated) {
-            // This is a new user
-            $userTypes = $request->input('userType');
-            foreach($userTypes as $userType) {
-                // Create a new instance of the corresponding model for each userType
-                $role = app("App\\Models\\{$userType}"); // Adjust the namespace based on your application
-                $role->create(['userId' => $user->id]); // Adjust the column name based on your table structure
-            }
-
-            return response()->json(['message' => 'User inserted successfully']);
-        } else {
-            // User with the same email already exists
+        // Check if the plmEmail already exists
+        if (Users::where('plmEmail', $userData['plmEmail'])->exists()) {
             return response()->json(['message' => 'User with this email already exists']);
         }
+
+        // Create a new User model instance
+        $user = Users::create($userData);
+
+        $userTypes = $request->input('userType');
+        foreach($userTypes as $userType) {
+            // Create a new instance of the corresponding model for each userType
+            $role = app("App\\Models\\{$userType}"); // Adjust the namespace based on your application
+            $role->create(['userId' => $user->id]); // Adjust the column name based on your table structure
+        }
+
+        return response()->json(['message' => 'User inserted successfully']);
     }
 
 

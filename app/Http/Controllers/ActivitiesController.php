@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Activity;
+use App\Models\Activities;
 
-class ActivityController extends Controller
+class ActivitiesController extends Controller
 {
     public function getAllActivities()
     {

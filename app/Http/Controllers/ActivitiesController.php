@@ -10,11 +10,9 @@ class ActivitiesController extends Controller
 {
     public function getAllActivities()
     {
-        // $activities = Activity::all();
-        // return response()->json($activities);
+        $activities = Activities::all();
 
-        // Return hello message for testing
-        return response()->json(['message' => 'getAllActivities!']);
+        return response()->json(['activities' => $activities]);
     }
 
     public function getActivityById($id)

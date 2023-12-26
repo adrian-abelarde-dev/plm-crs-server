@@ -93,4 +93,17 @@ class ActivitiesController extends Controller
 
         return response()->json(['message' => 'Activity updated successfully', 'activity' => $activity]);
     }
+
+    public function deleteActivity($id)
+    {
+        $activity = Activities::find($id);
+
+        if (!$activity) {
+            return response()->json(['message' => 'Activity not found'], 404);
+        }
+
+        $activity->delete();
+
+        return response()->json(['message' => 'Activity deleted successfully']);
+    }
 }

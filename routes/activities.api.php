@@ -16,4 +16,7 @@ Route::prefix('activities')->group(function () {
 
 	// update an existing activity
     Route::put('/1/{id}', [ActivitiesController::class, 'updateActivity']);
+
+	// delete an existing activity
+	Route::delete('/1/{id}', [ActivitiesController::class, 'deleteActivity']);
 });

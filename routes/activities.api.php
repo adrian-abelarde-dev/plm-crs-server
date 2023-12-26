@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ActivitiesController;
+use App\Http\Controllers\ParticipantsController;
 
 // ? --> {PORT}/api/activities/
 Route::prefix('activities')->group(function () {
@@ -19,4 +20,13 @@ Route::prefix('activities')->group(function () {
 
 	// delete an existing activity
 	Route::delete('/1/{id}', [ActivitiesController::class, 'deleteActivity']);
+});
+
+// ? --> {PORT}/api/participants/
+Route::prefix('participants')->group(function () {
+	// get all participants
+	Route::get('/all', [ParticipantsController::class, 'getAllParticipants']);
+
+	// create a new participant
+	Route::post('/1', [ParticipantsController::class, 'createParticipant']);
 });

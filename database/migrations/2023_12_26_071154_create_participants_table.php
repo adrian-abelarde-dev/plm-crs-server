@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('participants', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
+            $table->string('activityId');
             $table->string('participantType');
             $table->string('participants');
             $table->string('participantName');

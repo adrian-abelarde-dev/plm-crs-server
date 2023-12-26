@@ -14,6 +14,7 @@ class Participant extends Model
         'dateRange',
         'startTime',
         'endTime',
+        'activityId'
     ];
     
 }

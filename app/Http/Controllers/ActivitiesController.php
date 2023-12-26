@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Activities;
+use App\Models\Participant;
 use Illuminate\Support\Facades\Validator;
 
 class ActivitiesController extends Controller
@@ -102,8 +103,12 @@ class ActivitiesController extends Controller
             return response()->json(['message' => 'Activity not found'], 404);
         }
 
+        // Delete the activity
         $activity->delete();
 
-        return response()->json(['message' => 'Activity deleted successfully']);
+        // Delete participants related to the activity
+        Participant::where('activityId', $id)->delete();
+
+        return response()->json(['message' => 'Activity and related participants deleted successfully']);
     }
 }

@@ -17,16 +17,13 @@ class ActivitiesController extends Controller
 
     public function getActivityById($id)
     {
-        // $activity = Activity::find($id);
+        $activity = Activities::find($id);
 
-        // if (!$activity) {
-        //     return response()->json(['error' => 'Activity not found'], 404);
-        // }
+        if (!$activity) {
+            return response()->json(['message' => 'Activity not found'], 404);
+        }
 
-        // return response()->json($activity);
-
-        // Return hello message for testing
-        return response()->json(['message' => 'getActivityById!', 'id' => $id]);
+        return response()->json(['activity' => $activity]);
     }
 
     public function createActivity(Request $request)

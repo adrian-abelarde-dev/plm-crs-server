@@ -60,7 +60,7 @@ Route::post('/email-blast', function () {
         $mail->addReplyTo('info@example.com', 'Information');
 
         //Content
-        $mail->isHTML(true);                                  //Set email format to HTML
+        $mail->isHTML(true); //Set email format to HTML
         $mail->Subject = ' Email Blast test';
         $mail->Body    = 'Test email blast';
         $mail->AltBody = 'Test email blast';

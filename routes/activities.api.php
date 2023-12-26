@@ -12,7 +12,7 @@ Route::prefix('activities')->group(function () {
     Route::get('/1/{id}', [ActivitiesController::class, 'getActivityById']);
 
 	// create a new activity
-    Route::post('/', [ActivitiesController::class, 'createActivity']);
+    Route::post('/1', [ActivitiesController::class, 'createActivity']);
 
 	// update an existing activity
     Route::put('/1/{id}', [ActivitiesController::class, 'updateActivity']);

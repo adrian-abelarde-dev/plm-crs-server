@@ -63,24 +63,39 @@ class ActivitiesController extends Controller
 
     public function updateActivity(Request $request, $id)
     {
-        // $activity = Activity::find($id);
+        // Validate the request data
+        $validator = Validator::make($request->all(), [
+            'activityName' => 'required',
+            'aysem' => 'required',
+            'dateRange' => 'required|json',
+            'startTime' => 'required',
+            'endTime' => 'required',
+            'status' => 'required',
+        ]);
 
-        // if (!$activity) {
-        //     return response()->json(['error' => 'Activity not found'], 404);
-        // }
+        // If validation fails, return errors
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
 
-        // // Validate and update the activity
-        // // Example validation
-        // $validatedData = $request->validate([
-        //     'name' => 'required|string',
-        //     // Add other fields as needed
-        // ]);
+        // Find the activity by its ID
+        $activity = Activities::find($id);
 
-        // $activity->update($validatedData);
+        // If the activity doesn't exist, return a not found response
+        if (!$activity) {
+            return response()->json(['message' => 'Activity not found'], 404);
+        }
 
-        // return response()->json($activity);
+        // Update the activity with the new data
+        $activity->update([
+            'activityName' => $request->input('activityName'),
+            'aysem' => $request->input('aysem'),
+            'dateRange' => $request->input('dateRange'),
+            'startTime' => $request->input('startTime'),
+            'endTime' => $request->input('endTime'),
+            'status' => $request->input('status'),
+        ]);
 
-        // Return hello message for testing
-        return response()->json(['message' => 'getActivityById!', 'id' => $id]);
+        return response()->json(['message' => 'Activity updated successfully', 'activity' => $activity]);
     }
 }

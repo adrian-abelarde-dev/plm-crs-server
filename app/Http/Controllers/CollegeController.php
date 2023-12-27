@@ -97,7 +97,7 @@ class CollegeController extends Controller
         $existingCollege = College::find($collegeId);
 
         if ($existingCollege) {
-            return response()->json(['message' => 'College with the specified collegeId already exists'], 409);
+            return response()->json(['error' => 'College with the specified collegeId already exists'], 409);
         }
 
         // Create the college with the user-defined collegeId

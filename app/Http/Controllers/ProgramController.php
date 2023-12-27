@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Program;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 
 class ProgramController extends Controller
 {
@@ -96,11 +98,26 @@ class ProgramController extends Controller
      */
     public function addOne(Request $request, $programId)
     {
-        // $program = Program::create($request->all());
+        // Validate the request data
+        $validator = Validator::make($request->all(), [
+            'collegeId' => 'required|string',
+            'programName' => 'required|string',
+            'status' => 'required|string',
+        ]);
 
-        // return response()->json($program, 201);
+        if ($validator->fails()) {
+            return response()->json(['message' => 'Validation failed', 'errors' => $validator->errors()], 422);
+        }
 
-        // Return hello message for testing
-        return response()->json(['message' => 'addOne!', 'programId' => $programId]);
+        // Check if the program with the given programId already exists
+        if (Program::find($programId)) {
+            return response()->json(['error' => 'Program with the same programId already exists.'], 422);
+        }
+
+        // Create a new program with the provided programId
+        $programData = array_merge($request->all(), ['programId' => $programId]);
+        $program = Program::create($programData);
+
+        return response()->json(['message' => 'Program added successfully', 'program' => $program]);
     }
 }

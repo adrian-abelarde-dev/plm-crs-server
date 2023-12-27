@@ -17,4 +17,7 @@ Route::prefix('programs')->group(function () {
 	Route::put('/1/{programId}', [ProgramController::class, 'updateOne']);
 	Route::delete('/1/{programId}', [ProgramController::class, 'deleteOne']);
 	Route::post('/1/{programId}', [ProgramController::class, 'addOne']);
+
+	// toggle status
+	Route::put('/toggle-status/{programId}', [ProgramController::class, 'toggleStatus']);
 });

@@ -120,4 +120,22 @@ class ProgramController extends Controller
 
         return response()->json(['message' => 'Program added successfully', 'program' => $program]);
     }
+
+    public function toggleStatus($programId)
+    {
+        // Find the program by programId
+        $program = Program::find($programId);
+
+        if (!$program) {
+            return response()->json(['message' => 'Program not found'], 404);
+        }
+
+        // Toggle the status
+        $program->status = ($program->status === 'Active') ? 'Inactive' : 'Active';
+
+        // Save the changes
+        $program->save();
+
+        return response()->json(['message' => 'Status toggled successfully', 'program' => $program]);
+    }
 }

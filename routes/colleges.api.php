@@ -13,4 +13,8 @@ Route::prefix('colleges')->group(function () {
 	Route::put('/1/{collegeId}', [CollegeController::class, 'updateOne']);
 	Route::delete('/1/{collegeId}', [CollegeController::class, 'deleteOne']);
 	Route::post('/1/{collegeId}', [CollegeController::class, 'addOne']);
+
+	// toggle status
+	Route::put('/toggle-status/{collegeId}', [CollegeController::class, 'toggleStatus']);
+
 });

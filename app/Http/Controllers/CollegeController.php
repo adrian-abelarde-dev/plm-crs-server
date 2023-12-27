@@ -111,4 +111,22 @@ class CollegeController extends Controller
         return response()->json(['message' => 'College added successfully', 'college' => $college], 201);
     }
 
+    public function toggleStatus($collegeId)
+    {
+        // Find the college by collegeId
+        $college = College::find($collegeId);
+
+        if (!$college) {
+            return response()->json(['message' => 'College not found'], 404);
+        }
+
+        // Toggle the status
+        $college->status = ($college->status === 'Active') ? 'Inactive' : 'Active';
+
+        // Save the changes
+        $college->save();
+
+        return response()->json(['message' => 'Status toggled successfully', 'college' => $college]);
+    }
+
 }

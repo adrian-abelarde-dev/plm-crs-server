@@ -24,6 +24,8 @@ class CollegeController extends Controller
                 'type' => $college->type,
                 'status' => $college->status,
                 'programsListed' => $college->programs_count,
+                'created_at' => $college->created_at,
+                'updated_at' => $college->updated_at,
             ];
         });
 

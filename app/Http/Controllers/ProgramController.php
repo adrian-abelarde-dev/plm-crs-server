@@ -18,6 +18,26 @@ class ProgramController extends Controller
         return response()->json($programs);
     }
 
+    // Get by college
+    public function getByCollege($collegeId)
+    {
+        $programs = Program::where('collegeId', $collegeId)->get();
+
+        // Add the 'studentEnlisted' static value to each program in the response
+        $programsWithStudentEnlisted = $programs->map(function ($program) {
+            return [
+                'programId' => $program->programId,
+                'programName' => $program->programName,
+                'status' => $program->status,
+                'studentEnlisted' => 0, // Static value for illustration
+                'created_at' => $program->created_at,
+                'updated_at' => $program->updated_at,
+            ];
+        });
+
+        return response()->json($programsWithStudentEnlisted);
+    }
+
     /**
      * Add a new program (note: this method's purpose might be misleading as it's actually creating a new program).
      */

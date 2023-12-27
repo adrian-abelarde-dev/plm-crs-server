@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\College;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+
 
 class CollegeController extends Controller
 {
@@ -79,11 +81,34 @@ class CollegeController extends Controller
      */
     public function addOne(Request $request, $collegeId)
     {
-        // $college = College::create($request->all());
+        // Validate the request data
+        $validator = Validator::make($request->all(), [
+            'collegeName' => 'required|string',
+            'type' => 'required|string',
+            'status' => 'required|string',
+        ]);
 
-        // return response()->json($college, 201);
+        // If validation fails, return errors
+        if ($validator->fails()) {
+            return response()->json(['errors' => $validator->errors()], 400);
+        }
 
-        // Return hello message for testing
-        return response()->json(['message' => 'addOne!', 'collegeId' => $collegeId]);
+        // Check if a college with the specified collegeId already exists
+        $existingCollege = College::find($collegeId);
+
+        if ($existingCollege) {
+            return response()->json(['message' => 'College with the specified collegeId already exists'], 409);
+        }
+
+        // Create the college with the user-defined collegeId
+        $college = College::create([
+            'collegeId' => $collegeId,
+            'collegeName' => $request->input('collegeName'),
+            'type' => $request->input('type'),
+            'status' => $request->input('status'),
+        ]);
+
+        return response()->json(['message' => 'College added successfully', 'college' => $college], 201);
     }
+
 }

@@ -13,4 +13,9 @@ class College extends Model
         'type',
         'status'
     ];
+
+    public function programs()
+    {
+        return $this->hasMany(Program::class, 'collegeId', 'collegeId');
+    }
 }

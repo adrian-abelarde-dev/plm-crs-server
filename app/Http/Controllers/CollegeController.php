@@ -14,66 +14,20 @@ class CollegeController extends Controller
      */
     public function getAll()
     {
-        // $colleges = College::all();
-        // return response()->json($colleges);
+        $colleges = College::withCount('programs')->get();
 
-        // Return hello message for testing
-        return response()->json(['message' => 'getAll!']);
-    }
+        // Add the 'programsListed' count to each college in the response
+        $collegesWithProgramsListed = $colleges->map(function ($college) {
+            return [
+                'collegeId' => $college->collegeId,
+                'collegeName' => $college->collegeName,
+                'type' => $college->type,
+                'status' => $college->status,
+                'programsListed' => $college->programs_count,
+            ];
+        });
 
-    /**
-     * Display the specified college.
-     */
-    public function getOne($collegeId)
-    {
-        // $college = College::find($collegeId);
-
-        // if (!$college) {
-        //     return response()->json(['message' => 'College not found'], 404);
-        // }
-
-        // return response()->json($college);
-
-        // Return hello message for testing
-        return response()->json(['message' => 'getOne!', 'collegeId' => $collegeId]);
-    }
-
-    /**
-     * Update the specified college in storage.
-     */
-    public function updateOne(Request $request, $collegeId)
-    {
-        // $college = College::find($collegeId);
-
-        // if (!$college) {
-        //     return response()->json(['message' => 'College not found'], 404);
-        // }
-
-        // $college->update($request->all());
-
-        // return response()->json(['message' => 'College updated']);
-
-        // Return hello message for testing
-        return response()->json(['message' => 'updateOne!', 'collegeId' => $collegeId]);
-    }
-
-    /**
-     * Remove the specified college from storage.
-     */
-    public function deleteOne($collegeId)
-    {
-        // $college = College::find($collegeId);
-
-        // if (!$college) {
-        //     return response()->json(['message' => 'College not found'], 404);
-        // }
-
-        // $college->delete();
-
-        // return response()->json(['message' => 'College deleted']);
-
-        // Return hello message for testing
-        return response()->json(['message' => 'deleteOne!', 'collegeId' => $collegeId]);
+        return response()->json($collegesWithProgramsListed);
     }
 
     /**

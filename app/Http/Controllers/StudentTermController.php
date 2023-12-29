@@ -46,5 +46,28 @@ class StudentTermController extends Controller
         return response()->json(['message' => 'Student inserted successfully']);
     }
 
-    // Other controller methods...
+    public function updateStudent(Request $request, $studentTermId)
+    {
+        // Validate the request data
+        $request->validate([
+            'programId' => 'required',
+            'collegeId' => 'required',
+            'blockId' => 'required',
+            'yearLevel' => 'required|integer',
+            'studentStatus' => 'required',
+            'studentType' => 'required',
+            'aysem' => 'required',
+            'isEnrolled' => 'required|boolean',
+            'scholasticStatus' => 'required',
+            'isGraduating' => 'required|boolean',
+        ]);
+
+        // Find the student term by id
+        $studentTerm = StudentTerm::findOrFail($studentTermId);
+
+        // Update the student term with the request data
+        $studentTerm->update($request->all());
+
+        return response()->json(['message' => 'Student updated successfully']);
+    }
 }

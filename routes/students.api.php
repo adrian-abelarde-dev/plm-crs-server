@@ -9,8 +9,5 @@ Route::prefix('students')->group(function () {
 	Route::post('/1/{studentId}', [StudentTermController::class, 'insertStudent']);
 
 	// Update a student term
-	Route::put('/1/{studentId}', [StudentTermController::class, 'updateStudent']);
-
-
-
+	Route::put('/1/{studentTermId}', [StudentTermController::class, 'updateStudent']);
 });

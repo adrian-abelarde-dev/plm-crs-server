@@ -4,10 +4,23 @@ namespace App\Http\Controllers;
 
 use App\Models\StudentTerm;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StudentTermController extends Controller
 {
-    // Other controller methods...
+    public function getAllStudentTerms()
+    {
+        // Find the largest aysem value
+        $maxAysem = DB::table('student_terms')->max('aysem');
+
+        // Retrieve all student terms with the largest aysem value along with user data
+        $studentTerms = StudentTerm::join('users', 'student_terms.studentId', '=', 'users.id')
+            ->select('student_terms.*', 'users.firstName', 'users.middleName', 'users.lastName', 'users.plmEmail', 'users.status')
+            ->where('student_terms.aysem', $maxAysem)
+            ->get();
+
+        return response()->json(['students' => $studentTerms]);
+    }
 
     public function insertStudent(Request $request, $studentId)
     {

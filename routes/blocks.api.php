@@ -4,8 +4,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\BlockController;
 
 
-
-
 // ? --> {PORT}/api/blocks/
 Route::prefix('blocks')->group(function () {
 	// Get all blocks

@@ -23,7 +23,17 @@ Route::get('/', function () {
 });
 
 // Include routes for authentication, sending JWT, etc.
+// routes/api.php
 
+//Additional .api.php
+Route::group([], function () {
+    // Include default API routes
+    include __DIR__ . '/grad-students.api.php';
+    include __DIR__ . '/grad-assessment-history.api.php';
+    include __DIR__ . '/grad-payment-history.api.php';
+    include __DIR__ . '/enrollment.api.php';
+    include __DIR__ . '/grad-grades.api.php';
+});
 
 
 

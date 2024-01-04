@@ -10,6 +10,15 @@ use Illuminate\Support\Facades\Validator;
 
 class MeetingController extends Controller
 {
+
+    public function getAll()
+    {
+        // Retrieve all meetings from the database
+        $meetings = Meeting::all();
+
+        return response()->json(['data' => $meetings]);
+    }
+    
     public function createOne(Request $request, $meetingId)
     {
         // Check if a meeting with the given meetingId already exists

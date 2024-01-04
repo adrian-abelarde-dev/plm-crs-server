@@ -12,5 +12,5 @@ Route::prefix('meeting')->group(function () {
 	Route::post('/1/{meetingId}', [MeetingController::class, 'createOne']);
 
 	// Toggle status of a meeting by id; 'Active' and 'Inactive' are the only 2 statuses
-	Route::put('/1/toggle-status/{meetingId}', [MeetingController::class, 'toggleStatus']);
+	Route::put('/toggle-status/{meetingId}', [MeetingController::class, 'toggleStatus']);
 });

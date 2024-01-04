@@ -38,4 +38,24 @@ class MeetingController extends Controller
         return response()->json(['message' => 'Meeting created successfully', 'data' => $meeting], 201);
     }
 
+    public function toggleStatus($meetingId)
+    {
+        // Find the meeting by meetingId
+        $meeting = Meeting::find($meetingId);
+
+        // Check if the meeting exists
+        if (!$meeting) {
+            return response()->json(['message' => 'Meeting not found'], 404);
+        }
+
+        // Toggle the status
+        $meeting->status = $meeting->status === 'Active' ? 'Inactive' : 'Active';
+
+        // Save the updated status to the database
+        $meeting->save();
+
+        return response()->json(['message' => 'Status toggled successfully', 'data' => $meeting]);
+    }
+
+
 }

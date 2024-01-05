@@ -69,30 +69,39 @@ class UGGradesController extends Controller
         return response()->json(['students' => $formattedStudents]);
     }
 
-    // public function getStudentsOnGrades($subjectId, $blockId)
-    // {
-    //     // Retrieve students from ug_grades table based on the provided subjectId and blockId
-    //     $students = UgGrade::where('subjectId', $subjectId)
-    //         ->whereHas('studentTerm', function ($query) use ($blockId) {
-    //             $query->where('blockId', $blockId);
-    //         })
-    //         ->get();
+    public function getStudentsOnGrades($subjectId, $blockId)
+    {
+        // Retrieve students from ug_grades table based on the provided subjectId and blockId
+        $students = DB::table('ug_grades')
+            ->join('student_terms', 'ug_grades.studentId', '=', 'student_terms.studentId')
+            ->join('users', 'student_terms.studentId', '=', 'users.id')
+            ->select(
+                'users.id as studentNumber',
+                'users.firstName',
+                'users.lastName',
+                'student_terms.programId',
+                'student_terms.yearLevel',
+                'ug_grades.grade',
+                'ug_grades.remarks',
+                'ug_grades.subjectId'
+            )
+            ->where('ug_grades.subjectId', $subjectId)
+            ->where('student_terms.blockId', $blockId)
+            ->get();
 
-    //     // You can customize the response format as needed
-    //     $formattedStudents = $students->map(function ($grade) {
-    //         $student = $grade->studentTerm;
+        // You can customize the response format as needed
+        $formattedStudents = $students->map(function ($student) {
+            return [
+                'studentNumber' => $student->studentNumber,
+                'studentName' => $student->firstName . ' ' . $student->lastName,
+                'program' => $student->programId, // Adjust this based on your actual column name
+                'year' => $student->yearLevel,
+                'finalGrade' => $student->grade,
+                'remarks' => $student->remarks,
+                'subjectId' => $student->subjectId,
+            ];
+        });
 
-    //         return [
-    //             'studentNumber' => $student->studentNumber,
-    //             'studentName' => $student->fullName(),
-    //             'program' => $student->program,
-    //             'year' => $student->yearLevel,
-    //             'finalGrade' => $grade->grade,
-    //             'remarks' => $grade->remarks,
-    //             'subjectId' => $grade->subjectId,
-    //         ];
-    //     });
-
-    //     return response()->json(['students' => $formattedStudents]);
-    // }
+        return response()->json(['students' => $formattedStudents]);
+    }
 }

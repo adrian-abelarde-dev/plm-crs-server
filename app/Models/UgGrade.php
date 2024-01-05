@@ -12,6 +12,7 @@ class UgGrade extends Model
         'subjectId',
         'studentId',
         'facultyId',
+        'blockId',
         'grade',
         'aysem',
         'remarks',

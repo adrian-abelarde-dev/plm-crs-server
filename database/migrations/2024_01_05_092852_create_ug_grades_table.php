@@ -15,6 +15,7 @@ class CreateUgGradesTable extends Migration
             $table->string('subjectId');
             $table->unsignedBigInteger('studentId');
             $table->unsignedBigInteger('facultyId');
+            $table->string('blockId');
             $table->string('grade');
             $table->string('aysem');
             $table->text('remarks')->nullable();

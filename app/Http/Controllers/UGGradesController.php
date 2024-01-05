@@ -26,6 +26,7 @@ class UGGradesController extends Controller
                 }),
             ],
             'facultyId' => 'required',
+            'blockId' => 'required|string',
             'grade' => 'required|string',
             'aysem' => 'required|string',
             'remarks' => 'nullable|string',

@@ -9,7 +9,7 @@ use App\Models\StudentTerm;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Validator;
-
+use Illuminate\Support\Facades\DB;
 
 class UGGradesController extends Controller
 {
@@ -44,26 +44,30 @@ class UGGradesController extends Controller
         return response()->json(['message' => 'Grade inserted successfully', 'data' => $grade], 201);
     }
 
-    // public function getStudentsOnStudentTerms($subjectId, $blockId)
-    // {
-    //     // Retrieve students from student_terms table based on the provided blockId
-    //     $students = StudentTerm::where('blockId', $blockId)->get();
+    public function getStudentsOnStudentTerms($subjectId, $blockId)
+    {
+        // Retrieve students from student_terms table based on the provided blockId
+        $students = DB::table('student_terms')
+            ->join('users', 'student_terms.studentId', '=', 'users.id')
+            ->select('users.id', 'users.firstName', 'users.middleName', 'users.lastName', 'student_terms.programId', 'student_terms.yearLevel')
+            ->where('student_terms.blockId', $blockId)
+            ->get();
 
-    //     // You can customize the response format as needed
-    //     $formattedStudents = $students->map(function ($student) {
-    //         return [
-    //             'studentNumber' => $student->studentNumber,
-    //             'studentName' => $student->fullName(),
-    //             'program' => $student->program,
-    //             'year' => $student->yearLevel,
-    //             'finalGrade' => '',
-    //             'remarks' => '',
-    //             'subjectId' => $subjectId,
-    //         ];
-    //     });
+        // You can customize the response format as needed
+        $formattedStudents = $students->map(function ($student) use ($subjectId) {
+            return [
+                'studentNumber' => $student->id,
+                'studentName' => $student->firstName . ' ' . $student->lastName,
+                'program' => $student->programId, // Adjust this based on your actual column name
+                'year' => $student->yearLevel,
+                'finalGrade' => '',
+                'remarks' => '',
+                'subjectId' => $subjectId,
+            ];
+        });
 
-    //     return response()->json(['students' => $formattedStudents]);
-    // }
+        return response()->json(['students' => $formattedStudents]);
+    }
 
     // public function getStudentsOnGrades($subjectId, $blockId)
     // {

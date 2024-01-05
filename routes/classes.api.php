@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ClassesController;
+use Illuminate\Support\Carbon;
+
 
 // ? --> {PORT}/api/class/
 Route::prefix('class')->group(function () {
@@ -13,4 +15,10 @@ Route::prefix('class')->group(function () {
 
 	// Create 1 class by faculty and aysem
 	Route::post('/1/{facultyId}/{aysem}', [ClassesController::class, 'createOne']);
+});
+
+// ? --> {PORT}/api/aysem/{limit}
+Route::prefix('aysem')->group(function () {
+	// Get all aysem
+	Route::get('/{limit}', [ClassesController::class, 'getAysems']);
 });

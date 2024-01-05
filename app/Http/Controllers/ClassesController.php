@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Classes;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Carbon;
 
 class ClassesController extends Controller
 {
@@ -55,17 +56,32 @@ class ClassesController extends Controller
 
 
     public function getAllCourseCode($facultyId, $aysem, $courseCode)
-{
-    // Validate the request data
-    // No need to validate facultyId, aysem, and courseCode here since they are part of the URL parameters
+    {
+        // Validate the request data
+        // No need to validate facultyId, aysem, and courseCode here since they are part of the URL parameters
 
-    // Retrieve all classes based on facultyId, aysem, and courseCode
-    $classes = Classes::where('facultyId', $facultyId)
-        ->where('aysem', $aysem)
-        ->where('courseCode', $courseCode)
-        ->get();
+        // Retrieve all classes based on facultyId, aysem, and courseCode
+        $classes = Classes::where('facultyId', $facultyId)
+            ->where('aysem', $aysem)
+            ->where('courseCode', $courseCode)
+            ->get();
 
-    return response()->json(['data' => $classes]);
-}
+        return response()->json(['data' => $classes]);
+    }
+
+    public function getAysems($limit)
+    {
+        $currentYear = date('Y');
+
+        $aysems = [];
+        for ($i = 0; $i < $limit; $i++) {
+            $year = $currentYear - floor($i / 2);
+            $semester = $i % 2 == 0 ? '2' : '1';
+            $aysem = $year . $semester;
+            $aysems[] = $aysem;
+        }
+
+        return response()->json(['data' => $aysems]);
+    }
 
 }

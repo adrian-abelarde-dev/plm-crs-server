@@ -4,15 +4,22 @@ namespace App\Http\Controllers;
 
 use App\Models\Classes;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class ClassesController extends Controller
 {
     public function createOne(Request $request, $facultyId, $aysem)
     {
         // Validate the request data
-        $request->validate([
-            'courseCode' => 'required|string',
-            'section' => 'required|string',
+        $validator = Validator::make($request->all(), [
+            'courseCode' => [
+                'required',
+                'string',
+            ],
+            'section' => [
+                'required',
+                'string',
+            ],
             'courseTitle' => 'required|string',
             'units' => 'required|integer',
             'classSchedule' => 'required|string',
@@ -20,16 +27,18 @@ class ClassesController extends Controller
             'creditedUnits' => 'required|integer',
             'college' => 'required|string',
             'loadType' => 'required|string',
-            'facultyId' => 'required',
-            // Remove the validation for aysem from here
         ]);
+
+        // Check for validation errors
+        if ($validator->fails()) {
+            return response()->json(['error' => $validator->errors()], 422);
+        }
 
         // Create a new class instance
         $class = Classes::create(array_merge($request->all(), ['facultyId' => $facultyId, 'aysem' => $aysem]));
 
         return response()->json(['message' => 'Class created successfully', 'data' => $class], 201);
     }
-
 
     public function getAll($facultyId, $aysem)
     {

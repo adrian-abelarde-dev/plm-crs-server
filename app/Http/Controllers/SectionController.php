@@ -14,8 +14,8 @@ class SectionController extends Controller
         $sections = Section::select('sections.*')
                     ->join('colleges', 'sections.collegeID', '=', 'colleges.collegeID')
                     ->join('programs', 'programs.collegeID', '=', 'colleges.collegeID')
-                    ->where('colleges.collegeType', '=', 0)
-                    ->where('programs.programType', '=', 0)
+                    ->where('colleges.collegeType', '=', 1)
+                    ->where('programs.programType', '=', 1)
                     ->get();
 
         return response()->json(['sections' => $sections], 200);

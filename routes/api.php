@@ -5,7 +5,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
 
 
-
 /*
 |--------------------------------------------------------------------------
 | API Routes

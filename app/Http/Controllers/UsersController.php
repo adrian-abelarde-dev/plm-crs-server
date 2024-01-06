@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use App\Models\Users;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+
 
 
 class UsersController extends Controller
@@ -85,34 +87,58 @@ class UsersController extends Controller
     // update user data to database
     public function updateUser(Request $request, $userId)
     {
+        // Validate the request data
+        $request->validate([
+            // Add validation rules for other user fields if needed
+        ]);
+
         // Find the user by id
         $user = Users::findOrFail($userId);
 
         // Get the roles from the request
         $userTypes = $request->input('userType');
 
-        // Delete all instances of the specific userId from each role table
-        foreach (["Student", "StudentGrad", "ChairpersonUndergrad", "ChairpersonGrad", "Faculty", "Admin"] as $userType) {
-            $role = app("App\\Models\\{$userType}"); // Adjust the namespace based on your application
-            $role->where('userId', $user->id)->delete(); // Adjust the column name based on your table structure
+        // Use a database transaction for data consistency
+        DB::beginTransaction();
+
+        try {
+            // Delete all instances of the specific userId from each role table
+            foreach (["Student", "StudentGrad", "ChairpersonUndergrad", "ChairpersonGrad", "Faculty", "Admin"] as $userType) {
+                $role = app("App\\Models\\{$userType}"); // Adjust the namespace based on your application
+                $role->where('userId', $user->id)->delete(); // Adjust the column name based on your table structure
+            }
+
+            // Attach to the userType tables based on the updated userType
+            foreach ($userTypes as $userType) {
+                $role = app("App\\Models\\{$userType}"); // Adjust the namespace based on your application
+                $role->create(['userId' => $user->id]); // Adjust the column name based on your table structure
+            }
+
+            // Filter the request data to remove null or empty values
+            $userData = array_filter($request->only([
+                'firstName',
+                'middleName',
+                'lastName',
+                'plmEmail',
+                // Add other user fields here
+            ]));
+
+            // Fill user model
+            $user->fill($userData);
+
+            // Save user to database
+            $user->save();
+
+            // Commit the transaction
+            DB::commit();
+
+            return response()->json(['message' => 'User updated successfully']);
+        } catch (\Exception $e) {
+            // Rollback the transaction in case of an error
+            DB::rollback();
+
+            return response()->json(['message' => 'Error updating user'], 500);
         }
-
-        // Attach to the userType tables based on the updated userType
-        foreach ($userTypes as $userType) {
-            $role = app("App\\Models\\{$userType}"); // Adjust the namespace based on your application
-            $role->create(['userId' => $user->id]); // Adjust the column name based on your table structure
-        }
-
-        // Filter the request data to remove null or empty values
-        $userData = array_filter($request->all());
-
-        // Fill user model
-        $user->fill($userData);
-
-        // Save user to database
-        $user->save();
-
-        return response()->json(['message' => 'User updated successfully']);
     }
 
 

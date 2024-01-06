@@ -37,6 +37,5 @@ class ParticipantsController extends Controller
         $participant = Participant::create($request->all());
 
         return response()->json(['message' => 'Participant created successfully', 'participant' => $participant], 201);
-    
     }
 }

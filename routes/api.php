@@ -33,6 +33,7 @@ Route::group([], function () {
     include __DIR__ . '/grad-payment-history.api.php';
     include __DIR__ . '/enrollment.api.php';
     include __DIR__ . '/grad-grades.api.php';
+    include __DIR__ . '/undergrad-sections.api.php';
 });
 
 

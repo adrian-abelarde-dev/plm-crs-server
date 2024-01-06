@@ -13,8 +13,8 @@ Route::prefix('programs')->group(function () {
 	Route::get('/by-college/{collegeId}', [ProgramController::class, 'getByCollege']);
 
 	// Operations on a single program
-	Route::get('/1/{programId}', [ProgramController::class, 'getOne']);
-	Route::put('/1/{programId}', [ProgramController::class, 'updateOne']);
-	Route::delete('/1/{programId}', [ProgramController::class, 'deleteOne']);
 	Route::post('/1/{programId}', [ProgramController::class, 'addOne']);
+
+	// toggle status
+	Route::put('/toggle-status/{programId}', [ProgramController::class, 'toggleStatus']);
 });

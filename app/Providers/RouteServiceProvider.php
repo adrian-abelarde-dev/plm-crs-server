@@ -42,7 +42,7 @@ class RouteServiceProvider extends ServiceProvider
                 ->middleware('api')
                 ->namespace($this->namespace)
                 // ->group(base_path('routes/api.php'));
-                ->group(function($router){
+                ->group(function ($router) {
                     require base_path('routes/api.php');
                     require base_path('routes/activities.api.php');
                     require base_path('routes/blocks.api.php');
@@ -54,6 +54,7 @@ class RouteServiceProvider extends ServiceProvider
                     require base_path('routes/classes.api.php');
                     require base_path('routes/students.api.php');
                     require base_path('routes/faculties.api.php');
+                    require base_path('routes/faculty.api.php');
                 });
 
             Route::middleware('web')

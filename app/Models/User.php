@@ -17,10 +17,28 @@ class User extends Authenticatable
      *
      * @var array<int, string>
      */
+    protected $table = 'users';
     protected $fillable = [
-        'name',
-        'email',
+        'firstName',
+        'middleName', //nullable
+        'lastName',
+        'nameExtension', //nullable
+        'gender',
+        'maidenName', //nullable
+        'plmEmail',
         'password',
+        'birthday',
+        'birthplace',
+        'civilStatus',
+        //'country',    //left out country in migration
+        'mobilePhone',
+        'streetAddress',
+        'zipCode',
+        'provinceCity',
+        'unit',
+        'updatedBy',
+        'status',
+        'expiryDate'
     ];
 
     /**
@@ -41,4 +59,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function student()
+    {
+        return $this->hasMany(GradStudent::class);
+    }
 }

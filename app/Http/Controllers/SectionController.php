@@ -10,7 +10,7 @@ class SectionController extends Controller
     // GET:  sections/all
     public function getAll(){
         //get sections, colleges, programs table 
-        // where collegeType and programType = 1 
+        // where collegeType and programType = 1 (undergrad)
         $sections = Section::select('sections.*')
                     ->join('colleges', 'sections.collegeID', '=', 'colleges.collegeID')
                     ->join('programs', 'programs.collegeID', '=', 'colleges.collegeID')

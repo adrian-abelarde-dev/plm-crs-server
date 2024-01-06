@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id('studentTermID');
             //FK to students
             $table->unsignedBigInteger('studentID');
-            $table->foreign('studentID')->references('studentID')->on('students');
+            $table->foreign('studentID')->references('studentID')->on('gradstudents');
             //FK to programs
             $table->unsignedBigInteger('programID');
             $table->foreign('programID')->references('programID')->on('programs');

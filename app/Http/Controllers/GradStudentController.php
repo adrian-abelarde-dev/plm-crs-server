@@ -2,33 +2,39 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Room;
 use App\Models\User;
 use App\Models\Grade;
+use App\Models\Section;
+use App\Models\Subject;
+use App\Models\Schedule;
+use App\Models\ClassHours;
 use App\Models\GradStudent;
 use Illuminate\Http\Request;
 use App\Models\PaymentHistory;
 use App\Models\AssessmentHistory;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class GradStudentController extends Controller
 {
-    // /grad-students/all
+    //test function
     public function index($studNum){
-
         return $studNum . 'here';
     }
 
     // /grad-students/1/{studNum}
     public function getStudent($studNum)
     {
-        $student = GradStudent::select('students.*', 'users.*')
-                ->join('users', 'students.userId', '=', 'users.id')
-                ->where('students.studentId', $studNum)
-                ->first();
+        $gradstudent = GradStudent::join('users', 'gradstudents.userId', '=', 'users.id')
+            ->join('studentterms', 'gradstudents.studentID', '=', 'studentterms.studentID')
+            ->where('gradstudents.studentId', '=', $studNum)
+            ->get(['gradstudents.*', 'users.*', 'studentterms.*']);
 
-        if ($student) {
+        if ($gradstudent) {
             return response()->json([
                 'status' => 200,
-                'user' => $student
+                'data' => $gradstudent
             ], 200);
         } else {
             return 'Something went wrong';
@@ -43,7 +49,7 @@ class GradStudentController extends Controller
         if ($assessment) {
             return response()->json([
                 'status' => 200,
-                'user' => $assessment
+                'data' => $assessment
             ], 200);
         } else {
             return 'Something went wrong';
@@ -58,7 +64,7 @@ class GradStudentController extends Controller
         if ($payments) {
             return response()->json([
                 'status' => 200,
-                'user' => $payments
+                'data' => $payments
             ], 200);
         } else {
             return 'Something went wrong';
@@ -66,14 +72,71 @@ class GradStudentController extends Controller
     }
 
     //enrollment.api post: /grad-enroll/{studNum}
-    public function postGradEnroll(Request $request, $studNum){
+    public function postGradEnroll(Request $request, $studNum)
+    {
+        $request->validate([
+            'sectionName' => 'required',
+            'subjectName' => 'required',
+            'roomName' => 'required',
+            'day' => 'required',
+            'start' => 'required',
+            'finish' => 'required',
+            'paymentMethod' => 'required',
+        ]);
 
+        $student = GradStudent::where('studentID', $studNum)->first();
+
+        if (!$student) {
+            return response()->json(['message' => 'Student not found'], 404);
+        }
+
+        $sectionID = Section::where('sectionName', $request->input('sectionName'))->value('sectionID');
+        $subjectID = Subject::where('subjectName', $request->input('subjectName'))->value('subjectID');
+        $roomID = Room::where('roomName', $request->input('roomName'))->value('roomID');
+        $classHoursID = ClassHours::where([
+            'day' => $request->input('day'),
+            'start' => $request->input('start'),
+            'finish' => $request->input('finish'),
+            'roomID' => $roomID,
+        ])->value('classHoursID');
+        $paymentHistoryID = PaymentHistory::where('studentID', $student->studentID)->value('paymentHistoryID');
+        $scheduleID = Schedule::where([
+            'sectionID' => $sectionID,
+            'subjectID' => $subjectID,
+            'roomID' => $roomID,
+        ])->value('scheduleID');
+
+        $student->update([
+            'sectionID' => $sectionID,
+            'subjectID' => $subjectID,
+            'roomID' => $roomID,
+            'classHoursID' => $classHoursID,
+            'paymentHistoryID' => $paymentHistoryID,
+            'scheduleID' => $scheduleID,
+        ]);
+
+        return response()->json(['message' => 'Student record updated successfully']);
     }
 
     //enrollment.api get: /grad-class/all
     public function getAllGradClass(){
-        //Get all available grad classes for enrollment
-        //$classes = GradClass::all();
+        //Get all available grad classes 
+        $schedules = Schedule::join('sections', 'schedules.sectionID', '=', 'sections.sectionID')
+            ->join('subjects', 'schedules.subjectID', '=', 'subjects.subjectID')
+            ->join('classHours', 'schedules.scheduleID', '=', 'classHours.scheduleID')
+            ->join('rooms', 'schedules.roomID', '=', 'rooms.roomID')
+            ->select('schedules.*', 'sections.*', 'subjects.*', 'classHours.*')
+            ->get();
+
+        if ($schedules) {
+            return response()->json([
+                'status' => 200,
+                'data' => $schedules
+            ], 200);
+        } else {
+            return 'Something went wrong';
+        }
+        
     }
 
     //grad-grades GET: grad-grades/all/{studNum}/{aysem}
@@ -87,7 +150,7 @@ class GradStudentController extends Controller
         if ($grades) {
             return response()->json([
                 'status' => 200,
-                'grades' => $grades
+                'data' => $grades
             ], 200);
         } else {
             return 'Something went wrong';

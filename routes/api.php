@@ -4,6 +4,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
 
+//Load Composer's autoloader
+use vendor\autoload;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +28,7 @@ Route::get('/', function () {
 Route::get('/login/{email}', [UsersController::class, 'login']); 
 
 // Route for /api/users --> Insert user data to database
-Route::post('/users', [UsersController::class, 'insertUser']); 
+Route::post('/user/1/{userId}', [UsersController::class, 'insertUser']); 
 
 // Route for /api/user/1/{userId} --> Update user data to database
 Route::put('/user/1/{userId}', [UsersController::class, 'updateUser']);

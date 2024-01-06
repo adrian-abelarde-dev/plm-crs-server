@@ -59,20 +59,20 @@ class SubjectsController extends Controller
     {
         // Retrieve all subjects
         $subjects = Subjects::where('subjects.subjectType', 0)->get();
-        return response()->json(['Undergraduate Subjects' => $subjects]);
+        return response()->json(['undergraduateSubjects' => $subjects]);
     }
 
     public function getAllGradSubject()
     {
         // Retrieve all subjects
         $subjects = Subjects::where('subjects.subjectType', 1)->get();
-        return response()->json(['Graduate Subjects' => $subjects]);
+        return response()->json(['graduateSubjects' => $subjects]);
     }
 
     public function searchSubject($subjectId)
     {
         $subjects = Subjects::where('subjects.subjectId', $subjectId)->get();
-        return response()->json(['Search Subject' => $subjects]);
+        return response()->json(['searchSubject' => $subjects]);
     }
 
     public function updateSubject(Request $request, $subjectId)

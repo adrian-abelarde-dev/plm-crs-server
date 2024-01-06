@@ -67,9 +67,25 @@ class UsersController extends Controller
 
 
     // update user data to database
-    public function updateUser(Request $request, $userId){
+    public function updateUser(Request $request, $userId)
+    {
         // Find the user by id
         $user = Users::findOrFail($userId);
+
+        // Get the roles from the request
+        $userTypes = $request->input('userType');
+
+        // Delete all instances of the specific userId from each role table
+        foreach (["Student", "StudentGrad", "ChairpersonUndergrad", "ChairpersonGrad", "Faculty", "Admin"] as $userType) {
+            $role = app("App\\Models\\{$userType}"); // Adjust the namespace based on your application
+            $role->where('userId', $user->id)->delete(); // Adjust the column name based on your table structure
+        }
+
+        // Attach to the userType tables based on the updated userType
+        foreach ($userTypes as $userType) {
+            $role = app("App\\Models\\{$userType}"); // Adjust the namespace based on your application
+            $role->create(['userId' => $user->id]); // Adjust the column name based on your table structure
+        }
 
         // Filter the request data to remove null or empty values
         $userData = array_filter($request->all());
@@ -82,4 +98,6 @@ class UsersController extends Controller
 
         return response()->json(['message' => 'User updated successfully']);
     }
+
+
 }

@@ -4,8 +4,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UsersController;
 
-//Load Composer's autoloader
-use vendor\autoload;
+
 
 /*
 |--------------------------------------------------------------------------

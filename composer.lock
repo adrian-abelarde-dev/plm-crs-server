@@ -142,13 +142,7 @@
                 }
             },
             "notification-url": "https://packagist.org/downloads/",
-<<<<<<< HEAD
-            "license": [
-                "MIT"
-            ],
-=======
             "license": ["MIT"],
->>>>>>> 2a6703843bcccf782116eed8e83cc02cbaa66ef8
             "authors": [
                 {
                     "name": "KyleKatarn",

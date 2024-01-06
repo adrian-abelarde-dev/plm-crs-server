@@ -13,13 +13,14 @@ return new class extends Migration {
     public function up()
     {
         Schema::create('faculties', function (Blueprint $table) {
-            $table->id(); //facultyID
+            $table->id();
             $table->unsignedBigInteger('userId');
-            $table->string('tinNumber');
-            $table->string('gsisNumber');
-            $table->string('pedigree');
-            $table->string('instructorCode');
-            $table->boolean('onGraduate'); //added to identify if grad or undergrad prof
+            $table->string('tinNumber')->default('null');
+            $table->string('gsisNumber')->default('null');
+            $table->string('pedigree')->default('null');
+            $table->string('instructorCode')->default('null');
+            $table->boolean('onGraduate')->default(false);
+
             $table->timestamps();
         });
     }

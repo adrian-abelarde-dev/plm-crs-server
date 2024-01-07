@@ -25,7 +25,7 @@ Route::prefix('activities')->group(function () {
 // ? --> {PORT}/api/participants/
 Route::prefix('participants')->group(function () {
 	// get all participants
-	Route::get('/all', [ParticipantsController::class, 'getAllParticipants']);
+	Route::get('/all/{activityId}', [ParticipantsController::class, 'getAllParticipants']);
 
 	// create a new participant
 	Route::post('/1', [ParticipantsController::class, 'createParticipant']);

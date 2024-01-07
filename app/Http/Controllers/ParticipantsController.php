@@ -11,11 +11,14 @@ use App\Models\Participant;
 
 class ParticipantsController extends Controller
 {
-    public function getAllParticipants()
+   public function getAllParticipants($activityId)
     {
-        $participants = Participant::all();
+        // Assuming there is an 'activity_id' column in your participants table
+        $participants = Participant::where('activityId', $activityId)->get();
+        
         return response()->json(['participants' => $participants]);
     }
+
 
     public function createParticipant(Request $request)
     {

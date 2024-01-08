@@ -55,30 +55,6 @@ class UsersController extends Controller
         return response()->json(['users' => $users]);
     }
 
-    // Get all users and its corresponding roles
-    public function getUsers()
-    {
-        // Get all users
-        $users = Users::all();
-
-        // Get the roles for each user
-        foreach ($users as $user) {
-            $userTypes = [];
-
-            foreach (["Student", "StudentGrad", "ChairpersonUndergrad", "ChairpersonGrad", "Faculty", "Admin"] as $userType) {
-                $role = app("App\\Models\\{$userType}"); // Adjust the namespace based on your application
-
-                if ($role->where('userId', $user->id)->exists()) {
-                    $userTypes[] = $userType;
-                }
-            }
-
-            $user->userType = $userTypes;
-        }
-
-        return response()->json(['users' => $users]);
-    }
-
     public function insertUser(Request $request, $userId) {
         // Use $userId from route parameters
         $userData = [

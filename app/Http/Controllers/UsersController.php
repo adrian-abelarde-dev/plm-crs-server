@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class UsersController extends Controller
 {
+
     public function login($email){
         $user = Users::where('plmEmail', $email)->first();
 
@@ -32,6 +33,30 @@ class UsersController extends Controller
         }
     }
 
+    // Get all users and its corresponding roles
+    public function getUsers()
+    {
+        // Get all users
+        $users = Users::all();
+
+        // Get the roles for each user
+        foreach ($users as $user) {
+            $userTypes = [];
+
+            foreach (["Student", "StudentGrad", "ChairpersonUndergrad", "ChairpersonGrad", "Faculty", "Admin"] as $userType) {
+                $role = app("App\\Models\\{$userType}"); // Adjust the namespace based on your application
+
+                if ($role->where('userId', $user->id)->exists()) {
+                    $userTypes[] = $userType;
+                }
+            }
+
+            $user->userType = $userTypes;
+        }
+
+        return response()->json(['users' => $users]);
+    }
+
     // insert user data to database
     public function insertUser(Request $request, $userId) {
         // Use $userId from route parameters
@@ -41,6 +66,7 @@ class UsersController extends Controller
             'middleName' => $request->input('middleName'),
             'lastName' => $request->input('lastName'),
             'plmEmail' => $request->input('plmEmail'),
+            'status' => 'Active',
         ];
 
         // Check if the userId already exists
@@ -80,6 +106,28 @@ class UsersController extends Controller
         }
 
         return response()->json(['message' => 'User inserted successfully']);
+    }
+
+    // get a specific user by userId
+    public function getUserById($userId)
+    {
+        // Find the user by id
+        $user = Users::findOrFail($userId);
+
+        // Get the roles for the user
+        $userTypes = [];
+
+        foreach (["Student", "StudentGrad", "ChairpersonUndergrad", "ChairpersonGrad", "Faculty", "Admin"] as $userType) {
+            $role = app("App\\Models\\{$userType}"); // Adjust the namespace based on your application
+
+            if ($role->where('userId', $user->id)->exists()) {
+                $userTypes[] = $userType;
+            }
+        }
+
+        $user->userType = $userTypes;
+
+        return response()->json(['user' => $user]);
     }
 
 

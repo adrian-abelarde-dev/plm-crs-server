@@ -33,9 +33,11 @@ Route::post('/user/1/{userId}', [UsersController::class, 'insertUser']);
 // Route for /api/user/1/{userId} --> Update user data to database
 Route::put('/user/1/{userId}', [UsersController::class, 'updateUser']);
 
+// Route for /api/user/all --> Get all users and its corresponding roles
+Route::get('/user/all', [UsersController::class, 'getUsers']);
 
-
-
+// Route for /api/user/1/{userId} -> Get a specific user
+Route::get('/user/1/{userId}', [UsersController::class, 'getUserById']);
 
 
 

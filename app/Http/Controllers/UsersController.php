@@ -7,8 +7,6 @@ use App\Models\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-
-
 class UsersController extends Controller
 {
     public function login($email){
@@ -32,7 +30,6 @@ class UsersController extends Controller
         }
     }
 
-    // insert user data to database
     public function insertUser(Request $request, $userId) {
         // Use $userId from route parameters
         $userData = [
@@ -57,6 +54,7 @@ class UsersController extends Controller
         $user = Users::create($userData);
 
         $userTypes = $request->input('userType');
+      
         foreach ($userTypes as $userType) {
             // Create a new instance of the corresponding model for each userType
             $role = app("App\\Models\\{$userType}"); // Adjust the namespace based on your application
@@ -81,8 +79,6 @@ class UsersController extends Controller
 
         return response()->json(['message' => 'User inserted successfully']);
     }
-
-
 
     // update user data to database
     public function updateUser(Request $request, $userId)
@@ -140,6 +136,4 @@ class UsersController extends Controller
             return response()->json(['message' => 'Error updating user'], 500);
         }
     }
-
-
 }

@@ -20,7 +20,6 @@ return new class extends Migration {
             $table->string('pedigree')->default('null');
             $table->string('instructorCode')->default('null');
             $table->boolean('onGraduate')->default(false);
-
             $table->timestamps();
         });
     }

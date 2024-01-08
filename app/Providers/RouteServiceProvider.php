@@ -49,6 +49,7 @@ class RouteServiceProvider extends ServiceProvider
                     require base_path('routes/colleges.api.php');
                     require base_path('routes/meetingTypes.api.php');
                     require base_path('routes/programs.api.php');
+                    require base_path('routes/subjects.api.php');
                     require base_path('routes/userTypes.api.php');
                     require base_path('routes/meeting.api.php');
                     require base_path('routes/gradClasses.api.php');

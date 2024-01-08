@@ -7,8 +7,6 @@ use App\Models\Users;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-
-
 class UsersController extends Controller
 {
 
@@ -57,7 +55,30 @@ class UsersController extends Controller
         return response()->json(['users' => $users]);
     }
 
-    // insert user data to database
+    // Get all users and its corresponding roles
+    public function getUsers()
+    {
+        // Get all users
+        $users = Users::all();
+
+        // Get the roles for each user
+        foreach ($users as $user) {
+            $userTypes = [];
+
+            foreach (["Student", "StudentGrad", "ChairpersonUndergrad", "ChairpersonGrad", "Faculty", "Admin"] as $userType) {
+                $role = app("App\\Models\\{$userType}"); // Adjust the namespace based on your application
+
+                if ($role->where('userId', $user->id)->exists()) {
+                    $userTypes[] = $userType;
+                }
+            }
+
+            $user->userType = $userTypes;
+        }
+
+        return response()->json(['users' => $users]);
+    }
+
     public function insertUser(Request $request, $userId) {
         // Use $userId from route parameters
         $userData = [
@@ -83,6 +104,7 @@ class UsersController extends Controller
         $user = Users::create($userData);
 
         $userTypes = $request->input('userType');
+      
         foreach ($userTypes as $userType) {
             // Create a new instance of the corresponding model for each userType
             $role = app("App\\Models\\{$userType}"); // Adjust the namespace based on your application
@@ -188,6 +210,4 @@ class UsersController extends Controller
             return response()->json(['message' => 'Error updating user'], 500);
         }
     }
-
-
 }

@@ -76,4 +76,18 @@ class FacultyController extends Controller
 
         return response()->json(['message' => 'Faculty member updated successfully']);
     }
+
+    //TeachingAssignments
+    public function getTeachingAssignment($facultyId)
+    {
+        $faculty = Faculty::find($facultyId);
+
+        if ($faculty) {
+            $classes = $faculty->classes;
+            return response()->json(['teachingAssignments' => $classes]);
+        } else {
+            return response()->json(['Faculty not found']);
+        }
+
+    }
 }

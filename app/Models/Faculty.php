@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\GradClasses;
 
 class Faculty extends Model
 {
@@ -14,4 +15,9 @@ class Faculty extends Model
         'instructorCode',
         'onGraduate',
     ];
+
+    public function classes()
+    {
+        return $this->hasMany(GradClasses::class, 'facultyId');
+    }
 }

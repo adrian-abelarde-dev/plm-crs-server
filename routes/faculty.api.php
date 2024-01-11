@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\FacultyController;
 
-// ? --> {PORT}/api/students/
+// ? --> {PORT}/api/faculty/
 Route::prefix('faculty')->group(function () {
     // Get all faculty members
     Route::get('/all', [FacultyController::class, 'getAllFaculty']);
@@ -16,4 +16,10 @@ Route::prefix('faculty')->group(function () {
 
     // Update a faculty member
     Route::put('/1/{facultyId}', [FacultyController::class, 'updateFaculty']);
+});
+
+// ? --> {PORT}/api/grad-teaching-assignment/
+Route::prefix('grad-teaching-assignment')->group(function () {
+    // Get all faculty members
+    Route::get('/1/{facultyId}', [FacultyController::class, 'getTeachingAssignment']);
 });

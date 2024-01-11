@@ -75,4 +75,21 @@ class GradCurriculumsController extends Controller
         return response()->json(['message' => 'Course inserted successfully', 'data' => $show], 201);
     }
 
+    public function deleteCurriculum($curriculumId)
+    {
+        // Find the curriculum by its Id
+        $curriculum = GradCurriculums::find($curriculumId);
+
+        // Check if the curriculum exists
+        if ($curriculum) {
+            // Delete the curriculum
+            $curriculum->delete();
+
+            // Return a response
+            return response()->json(['message' => 'Curriculum deleted successfully']);
+        } else {
+            // Return an error response if the curriculum does not exist
+            return response()->json(['message' => 'Curriculum not found'], 404);
+        }
+    }
 }

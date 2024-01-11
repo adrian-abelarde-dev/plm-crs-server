@@ -18,4 +18,7 @@ Route::prefix('grad-curriculum')->group(function () {
 
 	// Put 1 class in a curriculum
 	Route::post('/insert/{curriculumId}/{courseId}', [GradCurriculumsController::class, 'putClassInCurriculum']);
+
+	// Delete a curriculum
+	Route::delete('/delete/{curriculumId}', [GradCurriculumsController::class, 'deleteCurriculum']);
 });

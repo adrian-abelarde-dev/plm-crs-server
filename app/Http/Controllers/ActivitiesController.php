@@ -16,6 +16,13 @@ class ActivitiesController extends Controller
         return response()->json(['activities' => $activities]);
     }
 
+    public function getAllActiveActivities()
+    {
+        $activities = Activities::where('status', 'LIKE', 'active')->orWhere('status', 'LIKE', 'ACTIVE')->get(); //case-insensitive
+
+        return response()->json(['activities' => $activities]);
+    }
+
     public function getActivityById($id)
     {
         $activity = Activities::find($id);

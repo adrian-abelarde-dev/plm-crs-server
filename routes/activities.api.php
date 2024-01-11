@@ -7,16 +7,16 @@ use App\Http\Controllers\ParticipantsController;
 // ? --> {PORT}/api/activities/
 Route::prefix('activities')->group(function () {
 	// get all activities
-    Route::get('/all', [ActivitiesController::class, 'getAllActivities']);
+	Route::get('/all', [ActivitiesController::class, 'getAllActivities']);
 
 	// get a specific activity
-    Route::get('/1/{id}', [ActivitiesController::class, 'getActivityById']);
+	Route::get('/1/{id}', [ActivitiesController::class, 'getActivityById']);
 
 	// create a new activity
-    Route::post('/1', [ActivitiesController::class, 'createActivity']);
+	Route::post('/1', [ActivitiesController::class, 'createActivity']);
 
 	// update an existing activity
-    Route::put('/1/{id}', [ActivitiesController::class, 'updateActivity']);
+	Route::put('/1/{id}', [ActivitiesController::class, 'updateActivity']);
 
 	// delete an existing activity
 	Route::delete('/1/{id}', [ActivitiesController::class, 'deleteActivity']);
@@ -29,4 +29,10 @@ Route::prefix('participants')->group(function () {
 
 	// create a new participant
 	Route::post('/1', [ParticipantsController::class, 'createParticipant']);
+});
+
+// ? --> {PORT}/api/grad-activities/
+Route::prefix('grad-activities')->group(function () {
+	// get all activities
+	Route::get('/all', [ActivitiesController::class, 'getAllActiveActivities']);
 });

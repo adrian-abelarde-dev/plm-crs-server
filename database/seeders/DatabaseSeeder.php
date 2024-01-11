@@ -9,6 +9,7 @@ use App\Models\Users;
 use App\Models\College;
 use App\Models\Program;
 use App\Models\StudentTerm;
+use App\Models\GradClasses;
 
 class DatabaseSeeder extends Seeder
 {
@@ -102,6 +103,49 @@ class DatabaseSeeder extends Seeder
             'scholasticStatus' => 'Not Paying',
             'isGraduating' => true
         ]);
-    }
 
+        GradClasses::insert([
+            'courseCode' => 'CSC101',
+            'section' => 'A',
+            'courseTitle' => 'Advanced Computer Architecture 1',
+            'units' => '3',
+            'classSchedule' => 'MWF 10:00AM - 11:00AM',
+            'studentCount' => '30',
+            'creditedUnits' => '3',
+            'college' => 'College of Engineering',
+            'loadType' => 'Regular',
+            'aysem' => '20212',
+            'facultyId' => '202010101'
+        ]);
+
+        GradClasses::insert([
+            'courseCode' => 'CSC201',
+            'section' => 'B',
+            'courseTitle' => 'Advanced Computer Architecture 2',
+            'units' => '3',
+            'classSchedule' => 'TTh 10:00AM - 11:00AM',
+            'studentCount' => '35',
+            'creditedUnits' => '3',
+            'college' => 'College of Engineering',
+            'loadType' => 'Regular',
+            'aysem' => '20212',
+            'facultyId' => '202010101'
+        ]);
+
+        GradClasses::insert([
+            'courseCode' => 'CSC301',
+            'section' => 'C',
+            'courseTitle' => 'Advanced Computer Architecture 3',
+            'units' => '3',
+            'classSchedule' => 'S 10:00AM - 11:00AM',
+            'studentCount' => '32',
+            'creditedUnits' => '3',
+            'college' => 'College of Engineering',
+            'loadType' => 'Regular',
+            'aysem' => '20212',
+            'facultyId' => '202010101'
+        ]);
+
+
+    }
 }
